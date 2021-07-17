@@ -1,0 +1,35 @@
+[server default]
+manager_workdir=/etc/masterha
+manager_log=/etc/masterha/manager.log
+user=mhamanager
+password=mha#123MAG
+ping_interval=3
+remote_workdir=/etc/masterha
+repl_user=slave
+repl_password=slave#99MHA
+ssh_user=root
+master_ip_failover_script=/usr/bin/master_ip_failover
+master_ip_online_change_script=/usr/bin/master_ip_online_change
+report_script=/usr/bin/send_report
+shutdown_script=""
+secondary_check_script=/usr/bin/masterha_secondary_check -s 192.168.18.78 -s 192.168.18.79   --user=root --master_host=192.168.18.77  --master_ip=192.168.18.77  --master_port=3306
+
+[server1]
+hostname=192.168.18.77
+port=3306
+master_binlog_dir=/var/lib/mysql/
+candidate_master=1
+check_repl_delay=0
+
+[server2]
+hostname=192.168.18.78
+port=3306
+master_binlog_dir=/var/lib/mysql/
+candidate_master=1
+check_repl_delay=0
+
+[server3]
+hostname=192.168.18.79
+port=3306
+master_binlog_dir=/var/lib/mysql/
+no_master=1
